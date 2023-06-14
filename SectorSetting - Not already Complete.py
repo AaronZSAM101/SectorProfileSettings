@@ -1,6 +1,5 @@
-# 完成后请用GBK保存！
 import os
-import re
+import shutil
 # 定义路径
 Sector_PATH=input('请输入扇区路径：')
 # Personalfile_PATH=input('请输入个人配置文件的路径：')
@@ -14,31 +13,26 @@ rating=input('请输入你的等级：')
 
 
 # 对扇区文件进行操作
-## 修改个人信息
-target_lines = '''LastSession\trealname\tTiansuo Li\nLastSession\tcertificate\t114514\nLastSession\tpassword\t1145141919810'''
-replace_lines = f'''LastSession\trealname\t{realname}\nLastSession\tcertificate\t{cid}\nLastSession\tpassword\t{password}'''
-## 对已存在的个人信息进行替换
-escaped_target_content = re.escape(target_lines)
-for root, dirs, files in os.walk(Sector_PATH):
-    for file in files:
-        if file.endswith('.prf'):
-            file_path = os.path.join(root, file)
-            with open(file_path, 'r') as f:
-                content = f.read()
-
-            # Perform the replacement using regular expression
-            updated_content = re.sub(escaped_target_content, replace_lines, content)
-
-            with open(file_path, 'w') as f:
-                f.write(updated_content)
-## 对未存在个人信息的prf写入个人信息
-def process_file(Sector_PATH):
-    with open(Sector_PATH,'.prf','r') as file:
-        content = file.read()
-    if 'LastSession\trealname\tTiansuo Li\nLastSession\tcertificate\t114514\nLastSession\tpassword\t1145141919810' not in content:
+## 写入个人信息
+text_to_append = f'''
+LastSession	realname	{realname}
+LastSession	certificate	{cid}
+LastSession	password	{password}
+LastSession	rating	{rating}
+'''
+file_list = [file for file in os.listdir(Sector_PATH) if file.endswith('.prf')]
+## 遍历文件夹中的文件
+for file_name in file_list:
+    file_path = os.path.join(Sector_PATH, file_name)
+    
+    try:
+        ### 在文件末尾追加文本内容
         with open(file_path, 'a') as file:
-            file.write(f"LastSession\trealname\t{realname}\nLastSession\tcertificate\t{cid}\nLastSession\tpassword\t{password}\n")
-# file.write()
+            file.write(text_to_append)
+    ### 如失败，显示报错
+    except Exception as e:
+        print(f"个人信息在添加至: {file_name}时出错，报错信息: {str(e)}")
+
 print('个人信息修改完成！')
 
 ## 修改Topsky的CPDLC Logon Code
@@ -47,4 +41,10 @@ logon_code=input('请输入你的CPDLC Logon Code：')
 with open(os.path.join(TopskyPath, "TopSkyCPDLChoppieCode.txt"), 'a') as f:
     f.write(f"{logon_code}")
 print("CPDLC Logon Code 修改完成！")
-input("扇区配置完成！")
+## 创建个人的配置文件（一般为Symbology，Tag，Alias）
+print('接下来开始设置你的个人配置文件，请先确保你的Alias.txt, Symbology.txt, Tag.txt已经放到同一个文件夹中。')
+Personal_Setting_Files=input('如果你受得了那个默认配色，请按Ctrl+C结束设置；否则，请输入你的个人配置文件的路径：')
+shutil.copyfile(os.path.join(Personal_Setting_Files, 'Alias.txt'),os.path.join(Sector_PATH, 'All', 'Settings', 'Alias.txt'))
+shutil.copyfile(os.path.join(Personal_Setting_Files, 'Symbology.txt'),os.path.join(Sector_PATH, 'All', 'Settings', 'Symbology.txt'))
+shutil.copyfile(os.path.join(Personal_Setting_Files, 'Tag.txt'),os.path.join(Sector_PATH, 'All', 'Settings', 'Tag.txt'))
+input("扇区配置完成，按回车键退出！")
