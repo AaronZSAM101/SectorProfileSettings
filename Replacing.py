@@ -4,14 +4,10 @@ import os
 
 search_path = input('Please Enter the sector path:')
 target_strings = [
-    'Settings\tSettingsfileSIL\t\All\Settings\SMRLists.txt',
-    'Settings\tSettingsfileSEL\t\All\Settings\SMRLists.txt',
-    'Settings\tSettingsfileDEP\t\All\Settings\SMRLists.txt'
+'Settings	SettingsfileSCREEN	\All\Settings\Layout_ACC.txt'
 ]
 replacement_strings = [
-    'Settings\tSettingsfileSIL\t\All\Settings\Lists_SMR.txt',
-    'Settings\tSettingsfileSEL\t\All\Settings\Lists_SMR.txt',
-    'Settings\tSettingsfileDEP\t\All\Settings\Lists_SMR.txt'
+'Settings\tSettingsfileSCREEN\t\All\Settings\Layout_TWR.txt'
 ]
 
 for root, dirs, files in os.walk(search_path):
