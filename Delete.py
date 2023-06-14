@@ -1,17 +1,19 @@
-# 批量删除插件
-print('Plugins Delete Script')
+# 批量删除
+print('Delete Script')
 import os
 
 search_path = input('Please enter your Sector Path:')
-target_strings = [
-    'Plugins\tPlugin7\t\All\Plugins\VATCANBookings.dll',
-    'Plugins\tPlugin7Display0\tSMR radar display',
-    'Plugins\tPlugin7Display1\tStandard ES radar screen'
-]
+# 方括号内为你要删除的内容
+target_strings = [ 
+    'LastSession\tcallsign\tClick here ---------------->',
+    'LastSession\trealname\tTiansuo Li',
+    'LastSession\tcertificate\t114514',
+    'LastSession\tpassword\t1145141919810'
+] 
 
 for root, dirs, files in os.walk(search_path):
     for file in files:
-        if file.endswith('_APP.prf'):
+        if file.endswith('.prf'):
             file_path = os.path.join(root, file)
             updated_lines = []
             with open(file_path, 'r') as f:

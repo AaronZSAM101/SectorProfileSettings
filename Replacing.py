@@ -1,22 +1,22 @@
-# 修改Lists指向
-print('List setting Script')
+# 修改已存在文件指向
+print('Replacing Script')
 import os
 
 search_path = input('Please Enter the sector path:')
 target_strings = [
-    'Settings\tSettingsfileSIL\t\All\Settings\Lists.txt',
-    'Settings\tSettingsfileSEL\t\All\Settings\Lists.txt',
-    'Settings\tSettingsfileDEP\t\All\Settings\Lists.txt'
+    'Settings\tSettingsfileSIL\t\All\Settings\SMRLists.txt',
+    'Settings\tSettingsfileSEL\t\All\Settings\SMRLists.txt',
+    'Settings\tSettingsfileDEP\t\All\Settings\SMRLists.txt'
 ]
 replacement_strings = [
-    'Settings\tSettingsfileSIL\t\All\Settings\Lists - Tower or below.txt',
-    'Settings\tSettingsfileSEL\t\All\Settings\Lists - Tower or below.txt',
-    'Settings\tSettingsfileDEP\t\All\Settings\Lists - Tower or below.txt'
+    'Settings\tSettingsfileSIL\t\All\Settings\Lists_SMR.txt',
+    'Settings\tSettingsfileSEL\t\All\Settings\Lists_SMR.txt',
+    'Settings\tSettingsfileDEP\t\All\Settings\Lists_SMR.txt'
 ]
 
 for root, dirs, files in os.walk(search_path):
     for file in files:
-        if file.endswith('_TWR.prf'):
+        if file.endswith('.prf'):
             file_path = os.path.join(root, file)
             updated_lines = []
             with open(file_path, 'r') as f:
