@@ -4,10 +4,10 @@ import os
 
 search_path = input('Please Enter the sector path:')
 target_strings = [
-'Settings	SettingsfileSCREEN	\All\Settings\Layout_ACC.txt'
+'Settings\tSettingsfilePLUGINS\t\All\Settings\Plugin.txt'
 ]
 replacement_strings = [
-'Settings\tSettingsfileSCREEN\t\All\Settings\Layout_TWR.txt'
+'Settings\tSettingsfilePLUGINS\t\All\Settings\Plugin_Lined.txt'
 ]
 
 for root, dirs, files in os.walk(search_path):

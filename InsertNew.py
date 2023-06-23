@@ -3,8 +3,10 @@ print('Writing Script')
 import os
 
 search_path = input('Please enter the root of your sector: ')
-target_string = ['LastSession\tconnecttype\t0']
-new_line = ['LastSession\tcallsign\tClick here ---------------->']
+target_string = ['Plugins\tPlugin5Display0\tGround Radar display']
+new_line = ['Plugins\tPlugin6\t\Data\Stock\Plugins\DiscordEuroscope.dll',
+'Plugins\tPlugin6Display0\tGround Radar display',
+'Plugins\tPlugin6Display1\tStandard ES radar screen']
 
 for root, dirs, files in os.walk(search_path):
     for file in files:
